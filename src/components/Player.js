@@ -1,51 +1,55 @@
 import React, { useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faAngleLeft, faPlay, faAngleRight} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleLeft,
+  faPlay,
+  faAngleRight,
+  faPause,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Player = ({ currentSong, isPlaying, setIsplaying }) => {
-//Ref
-  const audioRef = useRef(null)
-  const playSongHandler =()=>{
-    if(isPlaying){
-      audioRef.current.pause()
-      setIsplaying(!isPlaying)
-    }else{
-      audioRef.current.play()
-      setIsplaying(!isPlaying)
+  //Ref
+  const audioRef = useRef(null);
+  const playSongHandler = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsplaying(!isPlaying);
+    } else {
+      audioRef.current.play();
+      setIsplaying(!isPlaying);
     }
-  }
+  };
 
   // state
-  const [songInfo, setSongInfo]=useState({
-    currentTime:0,
-    duration:0
-  })
+  const [songInfo, setSongInfo] = useState({
+    currentTime: 0,
+    duration: 0,
+  });
 
-  const timeUpDateHandler=(e)=>{
+  const timeUpDateHandler = (e) => {
     const current = e.target.currentTime;
-    const duration = e.target.duration
-
+    const duration = e.target.duration;
 
     setSongInfo({
       ...songInfo,
-      currentTime:current,
+      currentTime: current,
       duration,
-    })
-  }
+    });
+  };
 
-  const dragHandler =(e)=>{
+  const dragHandler = (e) => {
     audioRef.current.currentTime = e.target.value;
     setSongInfo({
       ...setSongInfo,
-      currentTime:e.target.value
-    })
-  }
+      currentTime: e.target.value,
+    });
+  };
 
-  const getTime=(time)=>{
-    return(
-      Math.floor(time/60)+":"+("0"+Math.floor(time%60)).slice(-2)
-    )
-  }
+  const getTime = (time) => {
+    return (
+      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+    );
+  };
 
   return (
     <div className="player">
@@ -65,7 +69,7 @@ const Player = ({ currentSong, isPlaying, setIsplaying }) => {
         <FontAwesomeIcon
           onClick={playSongHandler}
           className="skip-back"
-          icon={faPlay}
+          icon={isPlaying ? faPause : faPlay }
           size="2x"
         />
         <FontAwesomeIcon

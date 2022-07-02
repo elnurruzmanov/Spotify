@@ -4,5 +4,10 @@
     padding: 0;
 }
 
+body{
+    font-family: "SF Pro Display" sans-serif;
+}
+
 @import "./song";
-@import "./player"
+@import "./player";
+@import "./_library"
